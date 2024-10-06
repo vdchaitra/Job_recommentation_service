@@ -3,7 +3,7 @@ import axios from 'axios';
 import "./App.css";
 import Modal from './model'; // Import the modal component
 
-const API_URL = 'http://localhost:4000/api';
+const API_URL = 'http://https://job-recommentation-service-4.onrender.com/api';
 
 function App() {
   const [users, setUsers] = useState([]);
