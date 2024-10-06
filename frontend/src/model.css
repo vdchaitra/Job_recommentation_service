@@ -4,60 +4,60 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  background-color: rgba(0, 0, 0, 0.5); 
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000; /* Ensure the modal is on top */
+  z-index: 1000; 
 }
 
 .modal-content {
-  background-color: white; /* Modal background */
+  background-color: white;
   padding: 20px;
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Shadow effect */
-  width: 800px; /* Set a fixed width */
-  max-width: 90%; /* Responsive max width */
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  width: 800px;
+  max-width: 90%; 
 }
 
 h2 {
-  margin: 0 0 15px; /* Spacing for the heading */
-  font-size: 20px; /* Heading font size */
-  text-align: center; /* Center-align heading */
+  margin: 0 0 15px;
+  font-size: 20px;
+  text-align: center;
 }
 
 label {
   display: block;
-  margin-bottom: 5px; /* Space between label and input */
-  font-weight: bold; /* Bold labels */
+  margin-bottom: 5px;
+  font-weight: bold;
 }
 
 input[type="text"] {
-  width: 100%; /* Full width */
-  padding: 8px; /* Input padding */
-  margin-bottom: 15px; /* Space between inputs */
-  border: 1px solid #ccc; /* Light border */
-  border-radius: 4px; /* Rounded corners */
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 button {
-  padding: 10px 15px; /* Button padding */
-  border: none; /* Remove default border */
-  border-radius: 4px; /* Rounded corners */
-  cursor: pointer; /* Pointer cursor on hover */
-  margin-right: 10px; /* Space between buttons */
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
 }
 
 button[type="submit"] {
-  background-color: #4CAF50; /* Green background for submit */
-  color: white; /* White text */
+  background-color: #4CAF50;
+  color: white;
 }
 
 button[type="button"] {
-  background-color: #f44336; /* Red background for cancel */
-  color: white; /* White text */
+  background-color: #f44336;
+  color: white;
 }
 
 button:hover {
-  opacity: 0.9; /* Slight transparency on hover */
+  opacity: 0.9;
 }
