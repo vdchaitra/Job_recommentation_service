@@ -12,7 +12,7 @@ mongoose.connect(process.env.MONGO_DB_URI)
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.log(err));
 
-// Updated UserProfile schema
+
 const UserProfileSchema = new mongoose.Schema({
     name: { type: String, required: true },
     skills: { type: [String], required: true },
@@ -31,6 +31,7 @@ const JobPostingSchema = new mongoose.Schema({
     location: { type: String, required: true },
     job_type: { type: String, required: true },
     experience_level: { type: String, required: true }
+    
 });
 
 const UserProfile = mongoose.model('UserProfile', UserProfileSchema);
@@ -69,41 +70,43 @@ app.post('/api/jobs', async (req, res) => {
 });
 
 const recommendJobs = (userProfile, jobPostings) => {
-    
     if (!userProfile || !userProfile.skills || !Array.isArray(userProfile.skills)) {
         return [];
     }
 
     const preferences = userProfile.preferences || {};
     const locations = preferences.location || [];
-    const jobtitle=preferences.desired_roles||[]
-    const jobtype=preferences.job_type||[]
+    const jobtitle = preferences.desired_roles || [];
+    const jobtype = preferences.job_type || [];
+
     if (!Array.isArray(locations)) {
         console.error("User's preferred locations is not an array:", locations);
         return [];
     }
 
     const recommendations = jobPostings.filter(job => {
-        const allSkillsMatch = userProfile.skills.some(skill =>
-            job.required_skills.includes(skill)
+        const allSkillsMatch = userProfile.skills.map(skill => skill.toLowerCase()).some(skill =>
+            job.required_skills.map(reqSkill => reqSkill.toLowerCase()).includes(skill)
         );
 
-        const experienceMatches = userProfile.experience_level === job.experience_level;
+        const experienceMatches = userProfile.experience_level.toLowerCase() === job.experience_level.toLowerCase();
 
         const locationMatches = locations.some(preference =>
             job.location.toLowerCase().includes(preference.toLowerCase())
         );
 
-        const jobtypeMatch=jobtype===job.job_type
+        const jobtypeMatch = jobtype.toLowerCase() === job.job_type.toLowerCase();
 
-        const jobtitleMatches=jobtitle.some(preference=> 
-            job.job_title.includes(preference))
+        const jobtitleMatches = jobtitle.some(preference => 
+            job.job_title.toLowerCase().includes(preference.toLowerCase())
+        );
 
-        return allSkillsMatch && experienceMatches && locationMatches&&jobtitleMatches&&jobtypeMatch;
+        return allSkillsMatch && experienceMatches && locationMatches && jobtitleMatches && jobtypeMatch;
     });
 
     return recommendations;
 };
+
 
 
 app.get('/api/recommendations/:userId', async (req, res) => {

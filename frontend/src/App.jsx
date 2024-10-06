@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import "./App.css";
+import Modal from './model'; // Import the modal component
 
 const API_URL = 'http://localhost:4000/api';
 
@@ -7,6 +9,8 @@ function App() {
   const [users, setUsers] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
   const [userId, setUserId] = useState('');
+  const [appliedJobs, setAppliedJobs] = useState({});
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal
 
   // Fetch all users
   useEffect(() => {
@@ -26,16 +30,36 @@ function App() {
     try {
       const res = await axios.get(`${API_URL}/recommendations/${userId}`);
       setRecommendations(res.data);
+      setAppliedJobs({});
     } catch (err) {
       console.error('Error fetching recommendations:', err);
     }
   };
 
+  // Handle apply button click
+  const handleApply = (job) => {
+    alert(`Successfully applied for ${job.job_title}!`);
+    setAppliedJobs(prev => ({ ...prev, [job._id]: true }));
+  };
+
+  // Handle adding a new user
+  const handleAddUser = async (newUser) => {
+    try {
+      const res = await axios.post(`${API_URL}/users`, newUser);
+      setUsers(prev => [...prev, res.data]); // Update users list
+    } catch (err) {
+      console.error('Error adding user:', err);
+    }
+  };
+
   return (
     <div className="App">
-      <h1>Job Recommendation System</h1>
+      <h1>Job Recommendation Service</h1>
+      <div>
+        <button className='addNew' onClick={() => setIsModalOpen(true)}>Add User</button>
+        <h2>Select a User to Get Recommendations:</h2>
+      </div>
 
-      <h2>Select a User to Get Recommendations:</h2>
       <select onChange={(e) => setUserId(e.target.value)}>
         <option value="">Select a user</option>
         {users.map(user => (
@@ -50,7 +74,18 @@ function App() {
           <ul>
             {recommendations.map((job) => (
               <li key={job._id}>
-                {job.job_title} at {job.company}
+                <div>
+                  <h4>{job.job_title} at {job.company}</h4>
+                  <p><strong>Location:</strong> {job.location}</p>
+                  <p><strong>Job type:</strong> {job.job_type}</p>
+                  <p><strong>Skills Required:</strong> {job.required_skills.join(', ')}</p>
+                  <p><strong>Experience:</strong> {job.experience_level}</p>
+                  {appliedJobs[job._id] ? (
+                    <button disabled>Applied</button>
+                  ) : (
+                    <button onClick={() => handleApply(job)}>Apply Now</button>
+                  )}
+                </div>
               </li>
             ))}
           </ul>
@@ -58,6 +93,9 @@ function App() {
       ) : (
         userId && <p>No recommendations available for this user.</p>
       )}
+
+      {/* Modal for adding a new user */}
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSubmit={handleAddUser} />
     </div>
   );
 }
