@@ -25,6 +25,7 @@ This project is a Job Recommendation Service built with Node.js, Express, and Mo
   - React
   - Axios
 ### HERE IS LIVE FRONTEND [HERE](https://job-recommentation-service-xfl3.vercel.app/)
+backend server should be only run in local desktop so u have to install it and run it.
 
 
 
