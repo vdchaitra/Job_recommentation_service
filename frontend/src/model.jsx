@@ -40,7 +40,7 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
             <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
           </div>
           <div>
-            <label>Skills (comma separated):</label>
+            <label>Skills:</label>
             <input type="text" value={skills} onChange={(e) => setSkills(e.target.value)} required />
           </div>
           <div>
@@ -48,11 +48,11 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
             <input type="text" value={experience} onChange={(e) => setExperience(e.target.value)} required />
           </div>
           <div>
-            <label>Desired Roles (comma separated):</label>
+            <label>Desired Roles:</label>
             <input type="text" value={preferences.desired_roles} onChange={(e) => setPreferences({ ...preferences, desired_roles: e.target.value })} />
           </div>
           <div>
-            <label>Location (comma separated):</label>
+            <label>Location:</label>
             <input type="text" value={preferences.location} onChange={(e) => setPreferences({ ...preferences, location: e.target.value })} />
           </div>
           <div>
