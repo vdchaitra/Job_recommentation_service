@@ -39,5 +39,7 @@ This project is a Job Recommendation Service built with Node.js, Express, and Mo
 
    ```bash
    git clone https://github.com/vdchaitra/job-recommendation-service.git
-   npm run dev
+   to run backend :npm run dev
+   to run frontend: cd frontend
+                       npm run dev
    
