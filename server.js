@@ -36,6 +36,9 @@ const JobPostingSchema = new mongoose.Schema({
 
 const UserProfile = mongoose.model('UserProfile', UserProfileSchema);
 const JobPosting = mongoose.model('JobPosting', JobPostingSchema);
+app.get("/",(req,res)=>{
+    res.send("Server is running fine")
+})
 
 app.post('/api/users', async (req, res) => {
     const userProfile = new UserProfile(req.body);
